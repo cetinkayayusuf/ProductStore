@@ -2,6 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductStore.Application.Features.AppUser.Commands.RegisterUser;
 using ProductStore.Application.Features.AppUser.Commands.LoginUser;
+using ServiceReference;
+using static ServiceReference.CountryInfoServiceSoapTypeClient;
 
 namespace ProductStore.Presentation.WebApi.Controllers
 {
@@ -27,6 +29,11 @@ namespace ProductStore.Presentation.WebApi.Controllers
         public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
         {
             LoginUserCommandResponse response = await _mediator.Send(loginUserCommandRequest);
+            CountryInfoServiceSoapTypeClient client = new CountryInfoServiceSoapTypeClient(EndpointConfiguration.CountryInfoServiceSoap);
+            await client.OpenAsync();
+            var flag = await client.CountryFlagAsync(response.CountryCode);
+            await client.CloseAsync();
+            response.FlagUrl = flag.Body.CountryFlagResult;
             return Ok(response);
         }
     }

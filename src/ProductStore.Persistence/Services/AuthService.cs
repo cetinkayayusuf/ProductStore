@@ -51,7 +51,8 @@ public class AuthService : IAuthService
             Token token = _tokenHandler.CreateAccessToken(authClaims, 60);
             return new()
             {
-                Token = token
+                Token = token,
+                CountryCode = user.CountryCode
             };
         }
 

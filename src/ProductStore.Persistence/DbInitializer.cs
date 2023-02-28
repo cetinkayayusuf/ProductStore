@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProductStore.Application.Services;
 using ProductStore.Domain.Entities.Enums;
 using ProductStore.Domain.Entities.Identity;
 using ProductStore.Persistance.Services;
@@ -49,7 +48,8 @@ public static class DbInitializer
                     {
                         Username = config["AdminCredentials:Email"],
                         Email = config["AdminCredentials:Email"],
-                        Password = config["AdminCredentials:Password"]
+                        Password = config["AdminCredentials:Password"],
+                        CountryCode = config["AdminCredentials:CountryCode"],
                     });
                     var user = await userManager.FindByEmailAsync(config["AdminCredentials:Email"]);
                     if (response.Succeeded)

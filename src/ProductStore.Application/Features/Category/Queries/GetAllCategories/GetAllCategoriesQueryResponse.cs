@@ -1,5 +1,3 @@
-using ProductStore.Application.Dto.Category;
-
 namespace ProductStore.Application.Features.Category.Queries.GetAllCategories;
 
 public class GetAllCategoriesQueryResponse

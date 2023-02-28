@@ -22,6 +22,7 @@ public class UserService : IUserService
             Id = Guid.NewGuid().ToString(),
             UserName = addUserDto.Username,
             Email = addUserDto.Email,
+            CountryCode = addUserDto.CountryCode
         }, addUserDto.Password);
         if (result.Succeeded)
             return new()

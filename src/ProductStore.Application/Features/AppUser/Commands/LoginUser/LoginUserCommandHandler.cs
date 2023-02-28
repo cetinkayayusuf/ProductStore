@@ -1,9 +1,5 @@
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using ProductStore.Application.Dto;
-using ProductStore.Application.Exceptions;
 using ProductStore.Application.Services;
-using ProductStore.Application.Services.Token;
 
 namespace ProductStore.Application.Features.AppUser.Commands.LoginUser;
 
@@ -26,6 +22,8 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommandRequest, 
         return new()
         {
             Token = response.Token,
+            CountryCode = response.CountryCode,
+            FlagUrl = ""
         };
     }
 }

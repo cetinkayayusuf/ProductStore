@@ -8,18 +8,27 @@ namespace ProductStore.Application.Features.Category.Commands.UpdateCategory
     {
         readonly ICategoryReadRepository _categoryReadRepository;
         readonly ICategoryWriteRepository _categoryWriteRepository;
+        readonly ICategoryService _categoryService;
 
-        public UpdateCategoryCommandHandler(ICategoryReadRepository categoryReadRepository, ICategoryWriteRepository categoryWriteRepository)
+
+        public UpdateCategoryCommandHandler(ICategoryReadRepository categoryReadRepository, ICategoryWriteRepository categoryWriteRepository, ICategoryService categoryService)
         {
             _categoryReadRepository = categoryReadRepository;
             _categoryWriteRepository = categoryWriteRepository;
+            _categoryService = categoryService;
         }
 
         public async Task<UpdateCategoryCommandResponse> Handle(UpdateCategoryCommandRequest request, CancellationToken cancellationToken)
         {
-            var entity = await _categoryReadRepository.GetByIdAsync(request.Id);
-            entity.Name = request.Name;
-            await _categoryWriteRepository.SaveAsync();
+            // var entity = await _categoryReadRepository.GetByIdAsync(request.Id);
+            // entity.Name = request.Name;
+            // await _categoryWriteRepository.SaveAsync();
+
+            await _categoryService.UpdateAsync(new()
+            {
+                Id = request.Id,
+                Name = request.Name
+            });
             return new();
         }
     }

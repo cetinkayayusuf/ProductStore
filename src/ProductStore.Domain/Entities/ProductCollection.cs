@@ -9,6 +9,7 @@ namespace ProductStore.Domain.Entities
         public string Description { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ProductCollectionStatus Status { get; set; }
+        public DateTime CompleteDate { get; set; }
 
     }
 }

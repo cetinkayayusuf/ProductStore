@@ -46,10 +46,15 @@ namespace ProductStore.Persistence
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.Decorate<ICategoryService, CachedCategoryService>();
+
 
             services.AddScoped<ITokenHandler, TokenHandler>();
 
             services.AddSingleton<ILoggerService, LoggerService>();
+
+            services.AddMemoryCache();
 
             // services.AddAutoMapper(cfg =>
             // cfg.AddMaps(typeof(Profile).Assembly));
