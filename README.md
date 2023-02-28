@@ -31,6 +31,9 @@ How to run Project ?
 - It is recommended to use postman or smilar tools,
   - due to jwt token configuration error in swagger ui, calls made from swagger ui wont work
   - request models could be seen in swagger ui
+
+Note: Admin user credential could be seen from ProductStore/src/ProductStore.WebAPI/appsettings.json
+
 ----
 
 What is not done or partially done
