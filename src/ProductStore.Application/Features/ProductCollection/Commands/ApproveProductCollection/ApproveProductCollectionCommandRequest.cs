@@ -4,5 +4,6 @@ namespace ProductStore.Application.Features.ProductCollection.Commands.ApprovePr
 
 public class ApproveProductCollectionCommandRequest : IRequest<ApproveProductCollectionCommandResponse>
 {
+    public string? UserId { get; set; }
     public string Id { get; set; }
 }

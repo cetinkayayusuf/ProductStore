@@ -4,5 +4,6 @@ namespace ProductStore.Application.Features.ProductCollection.Commands.DeletePro
 
 public class DeleteProductCollectionCommandRequest : IRequest<DeleteProductCollectionCommandResponse>
 {
+    public string? UserId { get; set; }
     public string Id { get; set; }
 }

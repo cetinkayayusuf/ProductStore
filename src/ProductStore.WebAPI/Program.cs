@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -105,6 +106,19 @@ app.ConfigureExceptionHandler(app.Services.GetRequiredService<ILoggerService>())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
+// app.Use(async (context, next) =>
+// {
+//     var userIdentity = context.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+
+//     if (userIdentity != default && !string.IsNullOrEmpty(userIdentity.Value))
+//     {
+//         var currentUserService = app.Services.GetRequiredService<ICurrentUser>();
+//         currentUserService.UserId = userIdentity.Value;
+//     }
+
+//     await next.Invoke();
+// });
 
 app.UseAuthorization();
 

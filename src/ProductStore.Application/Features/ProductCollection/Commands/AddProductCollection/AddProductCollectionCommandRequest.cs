@@ -4,6 +4,7 @@ namespace ProductStore.Application.Features.ProductCollection.Commands.AddProduc
 
 public class AddProductCollectionCommandRequest : IRequest<AddProductCollectionCommandResponse>
 {
+    public string? UserId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public List<string> CategoryIds { get; set; }

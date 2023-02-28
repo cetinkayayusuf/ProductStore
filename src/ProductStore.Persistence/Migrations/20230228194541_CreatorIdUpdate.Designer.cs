@@ -11,8 +11,8 @@ using ProductStore.Persistence.Context;
 namespace ProductStore.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230227152916_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230228194541_CreatorIdUpdate")]
+    partial class CreatorIdUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,8 +148,9 @@ namespace ProductStore.Persistence.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
@@ -214,6 +215,10 @@ namespace ProductStore.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -266,6 +271,46 @@ namespace ProductStore.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("ProductStore.Domain.Entities.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ModifierId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ReferenceId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Deleted");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("ProductStore.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -275,8 +320,9 @@ namespace ProductStore.Persistence.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
@@ -308,11 +354,15 @@ namespace ProductStore.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("CompleteDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");

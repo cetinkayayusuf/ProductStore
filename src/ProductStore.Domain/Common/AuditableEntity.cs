@@ -2,7 +2,7 @@ namespace ProductStore.Domain.Common
 {
     public abstract class AuditableEntity : BaseEntity, ISoftDelete
     {
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; } = default;
         public DateTime CreateDate { get; set; }
         public int ModifierId { get; set; }
         public DateTime ModifyDate { get; set; }

@@ -145,8 +145,9 @@ namespace ProductStore.Persistence.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
@@ -276,8 +277,9 @@ namespace ProductStore.Persistence.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
@@ -315,8 +317,9 @@ namespace ProductStore.Persistence.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
@@ -354,8 +357,9 @@ namespace ProductStore.Persistence.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");

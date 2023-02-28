@@ -1,5 +1,3 @@
-using ProductStore.Application.Dto.Product;
-
 namespace ProductStore.Application.Features.Notification.Queries.GetAllNotifications;
 
 public class GetAllNotificationsQueryResponse

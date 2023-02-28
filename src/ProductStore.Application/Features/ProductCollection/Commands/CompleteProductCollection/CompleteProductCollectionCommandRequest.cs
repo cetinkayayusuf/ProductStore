@@ -4,5 +4,6 @@ namespace ProductStore.Application.Features.ProductCollection.Commands.CompleteP
 
 public class CompleteProductCollectionCommandRequest : IRequest<CompleteProductCollectionCommandResponse>
 {
+    public string? UserId { get; set; }
     public string Id { get; set; }
 }

@@ -47,7 +47,10 @@ public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, string>
         {
             var entity = insertedEntity as AuditableEntity;
             if (entity != null)
+            {
+                entity.CreatorId = string.IsNullOrEmpty(entity.CreatorId) ? "" : entity.CreatorId;
                 entity.CreateDate = DateTime.Now;
+            }
         }
 
         var modifiedEntries = this.ChangeTracker.Entries().Where(x => x.State == EntityState.Modified).Select(x => x.Entity);

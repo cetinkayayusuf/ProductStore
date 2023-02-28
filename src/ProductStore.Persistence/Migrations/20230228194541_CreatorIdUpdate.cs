@@ -5,7 +5,7 @@
 namespace ProductStore.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Notification : Migration
+    public partial class CreatorIdUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

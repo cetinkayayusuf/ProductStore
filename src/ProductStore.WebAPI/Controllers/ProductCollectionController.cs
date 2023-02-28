@@ -1,5 +1,4 @@
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductStore.Application.Features.ProductCollection.Commands.AddProductCollection;
 using ProductStore.Application.Features.ProductCollection.Commands.ApproveProductCollection;
@@ -25,64 +24,72 @@ namespace ProductStore.Presentation.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllProductCollectionsQueryRequest getAllProductCollectionsQueryRequest)
+        public async Task<IActionResult> GetAll([FromQuery] GetAllProductCollectionsQueryRequest request)
         {
-            GetAllProductCollectionsQueryResponse response = await _mediator.Send(getAllProductCollectionsQueryRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            GetAllProductCollectionsQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> Get([FromRoute] GetProductCollectionByIdQueryRequest getProductCollectionByIdQueryRequest)
+        public async Task<IActionResult> Get([FromRoute] GetProductCollectionByIdQueryRequest request)
         {
-            GetProductCollectionByIdQueryResponse response = await _mediator.Send(getProductCollectionByIdQueryRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            GetProductCollectionByIdQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost]
         // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Add([FromBody] AddProductCollectionCommandRequest addProductCollectionCommandRequest)
+        public async Task<IActionResult> Add([FromBody] AddProductCollectionCommandRequest request)
         {
-            AddProductCollectionCommandResponse response = await _mediator.Send(addProductCollectionCommandRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            AddProductCollectionCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPut()]
         // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update([FromBody] UpdateProductCollectionCommandRequest updateProductCollectionCommandRequest)
+        public async Task<IActionResult> Update([FromBody] UpdateProductCollectionCommandRequest request)
         {
-            UpdateProductCollectionCommandResponse response = await _mediator.Send(updateProductCollectionCommandRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            UpdateProductCollectionCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpDelete("{Id}")]
         // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete([FromRoute] DeleteProductCollectionCommandRequest deleteProductCollectionCommandRequest)
+        public async Task<IActionResult> Delete([FromRoute] DeleteProductCollectionCommandRequest request)
         {
-            DeleteProductCollectionCommandResponse response = await _mediator.Send(deleteProductCollectionCommandRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            DeleteProductCollectionCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost("{Id}/[action]")]
         // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Complete([FromRoute] CompleteProductCollectionCommandRequest deleteProductCollectionCommandRequest)
+        public async Task<IActionResult> Complete([FromRoute] CompleteProductCollectionCommandRequest request)
         {
-            CompleteProductCollectionCommandResponse response = await _mediator.Send(deleteProductCollectionCommandRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            CompleteProductCollectionCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost("{Id}/[action]")]
         // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Approve([FromRoute] ApproveProductCollectionCommandRequest deleteProductCollectionCommandRequest)
+        public async Task<IActionResult> Approve([FromRoute] ApproveProductCollectionCommandRequest request)
         {
-            ApproveProductCollectionCommandResponse response = await _mediator.Send(deleteProductCollectionCommandRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            ApproveProductCollectionCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost("{Id}/[action]")]
         // [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Reject([FromRoute] RejectProductCollectionCommandRequest deleteProductCollectionCommandRequest)
+        public async Task<IActionResult> Reject([FromRoute] RejectProductCollectionCommandRequest request)
         {
-            RejectProductCollectionCommandResponse response = await _mediator.Send(deleteProductCollectionCommandRequest);
+            request.UserId = HttpContext.User.GetLoggedInUserId();
+            RejectProductCollectionCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }

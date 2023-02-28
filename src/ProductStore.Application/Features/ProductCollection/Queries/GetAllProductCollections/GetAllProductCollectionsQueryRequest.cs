@@ -5,6 +5,7 @@ namespace ProductStore.Application.Features.ProductCollection.Queries.GetAllProd
 
 public class GetAllProductCollectionsQueryRequest : IRequest<GetAllProductCollectionsQueryResponse>
 {
+    public string? UserId { get; set; }
     public Pagination? Pagination { get; set; }
     public String? SearchParameter { get; set; }
 

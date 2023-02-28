@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProductStore.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,6 +40,8 @@ namespace ProductStore.Persistence.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    CountryCode = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -70,6 +72,29 @@ namespace ProductStore.Persistence.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Message = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    ReferenceId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatorId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ModifierId = table.Column<int>(type: "int", nullable: false),
+                    ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ProductCollections",
                 columns: table => new
                 {
@@ -79,7 +104,9 @@ namespace ProductStore.Persistence.Migrations
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    CreatorId = table.Column<int>(type: "int", nullable: false),
+                    CompleteDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatorId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifierId = table.Column<int>(type: "int", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -100,7 +127,8 @@ namespace ProductStore.Persistence.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatorId = table.Column<int>(type: "int", nullable: false),
+                    CreatorId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifierId = table.Column<int>(type: "int", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -247,7 +275,8 @@ namespace ProductStore.Persistence.Migrations
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ProductCollectionId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    CreatorId = table.Column<int>(type: "int", nullable: false),
+                    CreatorId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ModifierId = table.Column<int>(type: "int", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -342,6 +371,11 @@ namespace ProductStore.Persistence.Migrations
                 column: "ProductsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notifications_Deleted",
+                table: "Notifications",
+                column: "Deleted");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductCollections_Deleted",
                 table: "ProductCollections",
                 column: "Deleted");
@@ -372,6 +406,9 @@ namespace ProductStore.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "CategoryProduct");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

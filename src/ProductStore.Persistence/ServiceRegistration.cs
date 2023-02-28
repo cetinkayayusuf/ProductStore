@@ -52,6 +52,8 @@ namespace ProductStore.Persistence
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IProductCollectionService, ProductCollectionService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.Decorate<ICategoryService, CachedCategoryService>();
 

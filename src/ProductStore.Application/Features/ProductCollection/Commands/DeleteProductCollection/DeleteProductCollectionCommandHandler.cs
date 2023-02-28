@@ -1,24 +1,22 @@
 using AutoMapper;
 using MediatR;
 using ProductStore.Application.Repositories;
+using ProductStore.Application.Services;
 
 namespace ProductStore.Application.Features.ProductCollection.Commands.DeleteProductCollection
 {
     public class DeleteProductCollectionCommandHandler : IRequestHandler<DeleteProductCollectionCommandRequest, DeleteProductCollectionCommandResponse>
     {
-        private readonly IProductCollectionWriteRepository _productCollectionWriteRepository;
-        private readonly IMapper _mapper;
+        private readonly IProductCollectionService _productCollectionService;
 
-        public DeleteProductCollectionCommandHandler(IProductCollectionWriteRepository productCollectionWriteRepository, IMapper mapper)
+        public DeleteProductCollectionCommandHandler(IProductCollectionService productCollectionService)
         {
-            _productCollectionWriteRepository = productCollectionWriteRepository;
-            _mapper = mapper;
+            _productCollectionService = productCollectionService;
         }
 
         public async Task<DeleteProductCollectionCommandResponse> Handle(DeleteProductCollectionCommandRequest request, CancellationToken cancellationToken)
         {
-            await _productCollectionWriteRepository.RemoveAsync(request.Id);
-            await _productCollectionWriteRepository.SaveAsync();
+            await _productCollectionService.DeleteProductCollectionAsync(request.UserId, request.Id);
             return new();
         }
     }

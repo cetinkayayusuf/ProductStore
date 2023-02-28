@@ -1,36 +1,26 @@
 using AutoMapper;
 using MediatR;
 using ProductStore.Application.Repositories;
+using ProductStore.Application.Services;
 
 namespace ProductStore.Application.Features.Notification.Queries.GetAllNotifications
 {
     public class GetAllNotificationsQueryHandler : IRequestHandler<GetAllNotificationsQueryRequest, GetAllNotificationsQueryResponse>
     {
-        private readonly INotificationReadRepository _notificationReadRepository;
-        private readonly IMapper _mapper;
+        private readonly INotificationService _notificationService;
 
-        public GetAllNotificationsQueryHandler(INotificationReadRepository notificationReadRepository, IMapper mapper)
+        public GetAllNotificationsQueryHandler(INotificationService notificationService)
         {
-            _notificationReadRepository = notificationReadRepository;
-            _mapper = mapper;
+            _notificationService = notificationService;
         }
 
         public async Task<GetAllNotificationsQueryResponse> Handle(GetAllNotificationsQueryRequest request, CancellationToken cancellationToken)
         {
-            var entities = await _notificationReadRepository.GetAsync();
-            var entityCount = entities.Count();
-
-            var notifications = entities.Select(notification => new
-            {
-                notification.Id,
-                notification.Message,
-                Type = Enum.GetName(notification.Type),
-                notification.ReferenceId,
-            });
+            var notifications = await _notificationService.GetAllNotifications();
             return new()
             {
                 Notifications = notifications,
-                NotificationCount = entityCount
+                NotificationCount = notifications.Count()
             };
         }
     }
