@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace ProductStore.Application.Features.Category.Queries.GetProductById;
+namespace ProductStore.Application.Features.ProductCollection.Queries.GetByIdProductCollection;
 
 public class GetProductCollectionByIdQueryRequest : IRequest<GetProductCollectionByIdQueryResponse>
 {

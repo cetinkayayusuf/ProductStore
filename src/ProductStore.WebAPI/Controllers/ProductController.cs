@@ -11,7 +11,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,User")]
+    // [Authorize(Roles = "Admin,User")]
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -36,7 +36,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add([FromBody] AddProductCommandRequest addProductCommandRequest)
         {
             AddProductCommandResponse response = await _mediator.Send(addProductCommandRequest);
@@ -44,7 +44,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
         }
 
         [HttpPut()]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] UpdateProductCommandRequest updateProductCommandRequest)
         {
             UpdateProductCommandResponse response = await _mediator.Send(updateProductCommandRequest);
@@ -52,7 +52,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] DeleteProductCommandRequest deleteProductCommandRequest)
         {
             DeleteProductCommandResponse response = await _mediator.Send(deleteProductCommandRequest);

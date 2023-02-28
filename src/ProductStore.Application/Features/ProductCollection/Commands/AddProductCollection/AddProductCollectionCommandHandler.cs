@@ -2,17 +2,17 @@ using AutoMapper;
 using MediatR;
 using ProductStore.Application.Repositories;
 
-namespace ProductStore.Application.Features.Product.Commands.AddProduct
+namespace ProductStore.Application.Features.ProductCollection.Commands.AddProductCollection
 {
     public class AddProductCollectionCommandHandler : IRequestHandler<AddProductCollectionCommandRequest, AddProductCollectionCommandResponse>
     {
-        private readonly IProductWriteRepository _productWriteRepository;
+        private readonly IProductCollectionWriteRepository _productCollectionWriteRepository;
         private readonly ICategoryReadRepository _categoryReadRepository;
         private readonly IMapper _mapper;
 
-        public AddProductCollectionCommandHandler(IProductWriteRepository productWriteRepository, IMapper mapper, ICategoryReadRepository categoryReadRepository)
+        public AddProductCollectionCommandHandler(IProductCollectionWriteRepository productCollectionWriteRepository, IMapper mapper, ICategoryReadRepository categoryReadRepository)
         {
-            _productWriteRepository = productWriteRepository;
+            _productCollectionWriteRepository = productCollectionWriteRepository;
             _mapper = mapper;
             _categoryReadRepository = categoryReadRepository;
         }
@@ -20,13 +20,13 @@ namespace ProductStore.Application.Features.Product.Commands.AddProduct
         public async Task<AddProductCollectionCommandResponse> Handle(AddProductCollectionCommandRequest request, CancellationToken cancellationToken)
         {
             var categories = _categoryReadRepository.GetWhere(x => request.CategoryIds.Contains(x.Id.ToString())).ToList();
-            await _productWriteRepository.AddAsync(new()
+            await _productCollectionWriteRepository.AddAsync(new()
             {
                 Name = request.Name,
                 Description = request.Description,
                 Categories = categories
             });
-            await _productWriteRepository.SaveAsync();
+            await _productCollectionWriteRepository.SaveAsync();
             return new();
         }
     }

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace ProductStore.Application.Features.Product.Commands.DeleteProduct;
+namespace ProductStore.Application.Features.ProductCollection.Commands.DeleteProductCollection;
 
 public class DeleteProductCollectionCommandRequest : IRequest<DeleteProductCollectionCommandResponse>
 {

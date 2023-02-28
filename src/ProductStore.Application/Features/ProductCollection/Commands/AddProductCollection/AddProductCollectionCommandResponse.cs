@@ -1,4 +1,4 @@
-namespace ProductStore.Application.Features.Product.Commands.AddProduct;
+namespace ProductStore.Application.Features.ProductCollection.Commands.AddProductCollection;
 
 public class AddProductCollectionCommandResponse
 {

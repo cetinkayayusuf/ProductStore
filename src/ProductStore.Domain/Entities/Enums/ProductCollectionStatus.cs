@@ -4,5 +4,6 @@ public enum ProductCollectionStatus
 {
     Draft,
     Pending,
-    Approved
+    Approved,
+    Rejected
 }

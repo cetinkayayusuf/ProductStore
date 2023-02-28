@@ -13,9 +13,11 @@ public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, string>
     DbSet<Category> Categories { get; set; }
     DbSet<Product> Products { get; set; }
     DbSet<ProductCollection> ProductCollections { get; set; }
+    DbSet<Notification> Notifications { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    { }
+    {
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

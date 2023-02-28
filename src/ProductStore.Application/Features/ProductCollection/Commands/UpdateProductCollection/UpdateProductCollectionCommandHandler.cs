@@ -2,28 +2,28 @@ using AutoMapper;
 using MediatR;
 using ProductStore.Application.Repositories;
 
-namespace ProductStore.Application.Features.Product.Commands.UpdateProduct
+namespace ProductStore.Application.Features.ProductCollection.Commands.UpdateProductCollection
 {
     public class UpdateProductCollectionCommandHandler : IRequestHandler<UpdateProductCollectionCommandRequest, UpdateProductCollectionCommandResponse>
     {
-        readonly IProductReadRepository _productReadRepository;
-        readonly IProductWriteRepository _productWriteRepository;
+        readonly IProductCollectionReadRepository _productCollectionReadRepository;
+        readonly IProductCollectionWriteRepository _productCollectionWriteRepository;
         private readonly IMapper _mapper;
 
-        public UpdateProductCollectionCommandHandler(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper)
+        public UpdateProductCollectionCommandHandler(IProductCollectionReadRepository productCollectionReadRepository, IProductCollectionWriteRepository productCollectionWriteRepository, IMapper mapper)
         {
-            _productReadRepository = productReadRepository;
-            _productWriteRepository = productWriteRepository;
+            _productCollectionReadRepository = productCollectionReadRepository;
+            _productCollectionWriteRepository = productCollectionWriteRepository;
             _mapper = mapper;
         }
 
         public async Task<UpdateProductCollectionCommandResponse> Handle(UpdateProductCollectionCommandRequest request, CancellationToken cancellationToken)
         {
-            var entity = await _productReadRepository.GetByIdAsync(request.Id);
-            entity.Name = request.Name;
-            entity.Description = request.Description;
-            entity.Categories = (List<Domain.Entities.Category>)request.CategoryIds.Select(categoryId => new Domain.Entities.Category() { Id = Guid.Parse(categoryId) }).ToList();
-            await _productWriteRepository.SaveAsync();
+            var entity = await _productCollectionReadRepository.GetByIdAsync(request.Id);
+            entity.Name = string.IsNullOrEmpty(request.Name) ? request.Name : entity.Name;
+            entity.Description = string.IsNullOrEmpty(request.Description) ? request.Description : entity.Description;
+            entity.Categories = request.CategoryIds == default ? entity.Categories : (List<Domain.Entities.Category>)request.CategoryIds.Select(categoryId => new Domain.Entities.Category() { Id = Guid.Parse(categoryId) }).ToList();
+            await _productCollectionWriteRepository.SaveAsync();
             return new();
         }
     }

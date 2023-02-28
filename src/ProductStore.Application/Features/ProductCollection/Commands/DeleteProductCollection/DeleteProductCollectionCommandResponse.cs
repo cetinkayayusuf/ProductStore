@@ -1,4 +1,4 @@
-namespace ProductStore.Application.Features.Product.Commands.DeleteProduct;
+namespace ProductStore.Application.Features.ProductCollection.Commands.DeleteProductCollection;
 
 public class DeleteProductCollectionCommandResponse
 {

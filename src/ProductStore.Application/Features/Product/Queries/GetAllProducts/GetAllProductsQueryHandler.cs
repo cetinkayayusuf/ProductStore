@@ -17,17 +17,18 @@ namespace ProductStore.Application.Features.Product.Queries.GetAllProducts
 
         public async Task<GetAllProductsQueryResponse> Handle(GetAllProductsQueryRequest request, CancellationToken cancellationToken)
         {
-            var entityCount = _productReadRepository.GetAll(false).Count();
-            var entities = _productReadRepository.GetAll(false)
-                .Select(c => new
-                {
-                    c.Id,
-                    c.Name
-                }).ToList();
+            var entities = await _productReadRepository.GetAsync(includeProperties: "Categories");
+            var entityCount = entities.Count();
 
+            var products = entities.Select(product => new
+            {
+                product.Id,
+                product.Name,
+                Categories = product.Categories.Select(c => c.Name),
+            });
             return new()
             {
-                Products = entities,
+                Products = products,
                 ProductCount = entityCount
             };
         }

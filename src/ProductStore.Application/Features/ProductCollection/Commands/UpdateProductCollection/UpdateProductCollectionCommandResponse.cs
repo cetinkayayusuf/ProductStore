@@ -1,4 +1,4 @@
-namespace ProductStore.Application.Features.Product.Commands.UpdateProduct;
+namespace ProductStore.Application.Features.ProductCollection.Commands.UpdateProductCollection;
 
 public class UpdateProductCollectionCommandResponse
 {

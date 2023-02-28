@@ -2,5 +2,5 @@ using ProductStore.Domain.Entities;
 
 namespace ProductStore.Application.Repositories;
 
-public interface ICategoryReadRepository : IReadRepository<Category>
+public interface INotificationReadRepository : IReadRepository<Notification>
 { }

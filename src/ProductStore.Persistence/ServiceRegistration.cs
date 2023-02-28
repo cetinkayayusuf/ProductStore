@@ -21,6 +21,10 @@ namespace ProductStore.Persistence
             {
                 var connectionString = Configuration.ConnectionString;
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                options.UseTriggers(triggerOptions =>
+                {
+                    triggerOptions.AddAssemblyTriggers();
+                });
             });
 
             services.AddIdentity<AppUser, AppRole>(opt =>
@@ -43,6 +47,8 @@ namespace ProductStore.Persistence
             services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
             services.AddScoped<IProductCollectionReadRepository, ProductCollectionReadRepository>();
             services.AddScoped<IProductCollectionWriteRepository, ProductCollectionWriteRepository>();
+            services.AddScoped<INotificationReadRepository, NotificationReadRepository>();
+            services.AddScoped<INotificationWriteRepository, NotificationWriteRepository>();
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();

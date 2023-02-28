@@ -11,7 +11,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,User")]
+    // [Authorize(Roles = "Admin,User")]
     public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -36,7 +36,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,User")]
+        // [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Add([FromBody] AddCategoryCommandRequest addCategoryCommandRequest)
         {
             AddCategoryCommandResponse response = await _mediator.Send(addCategoryCommandRequest);
@@ -44,7 +44,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
         }
 
         [HttpPut()]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] UpdateCategoryCommandRequest updateCategoryCommandRequest)
         {
             UpdateCategoryCommandResponse response = await _mediator.Send(updateCategoryCommandRequest);
@@ -52,7 +52,7 @@ namespace ProductStore.Presentation.WebApi.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] DeleteCategoryCommandRequest deleteCategoryCommandRequest)
         {
             DeleteCategoryCommandResponse response = await _mediator.Send(deleteCategoryCommandRequest);

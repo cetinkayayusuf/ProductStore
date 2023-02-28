@@ -17,16 +17,23 @@ namespace ProductStore.Application.Features.Category.Queries.GetProductById
 
         public async Task<GetProductByIdQueryResponse> Handle(GetProductByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var entity = await _productReadRepository.GetByIdAsync(request.Id);
+            var productId = new Guid(request.Id);
+            var entity = await _productReadRepository.GetAsync(filter: x => x.Id == productId, includeProperties: "Categories");
+            var product = entity.ToList()[0];
+
             return new()
             {
-                Name = entity.Name,
-                Description = entity.Description,
-                Categories = entity.Categories.Select(c => new
+                Product = new
                 {
-                    c.Id,
-                    c.Name
-                }).ToList()
+                    product.Id,
+                    product.Name,
+                    product.Description,
+                    categories = product.Categories.Select(c => new
+                    {
+                        c.Id,
+                        c.Name
+                    }).ToList()
+                }
             };
         }
     }

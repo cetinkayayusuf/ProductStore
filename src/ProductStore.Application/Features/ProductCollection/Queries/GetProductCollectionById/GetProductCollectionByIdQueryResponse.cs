@@ -1,10 +1,8 @@
 using ProductStore.Application.Dto.Product;
 
-namespace ProductStore.Application.Features.Category.Queries.GetProductById;
+namespace ProductStore.Application.Features.ProductCollection.Queries.GetByIdProductCollection;
 
 public class GetProductCollectionByIdQueryResponse
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public object Categories { get; set; }
+    public object ProductCollection { get; set; }
 }
